@@ -1,6 +1,6 @@
 import MainNavigation from "./MainNavigation";
 
-function Layout(){
+function Header(){
     return(
         <div>
             <MainNavigation />
@@ -9,4 +9,4 @@ function Layout(){
 
 }
 
-export default Layout;
+export default Header;
