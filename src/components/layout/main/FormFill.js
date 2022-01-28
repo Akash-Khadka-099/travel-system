@@ -1,24 +1,51 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useState } from "react";
 
 import { Form, InputDivs, Input, DivContainer, Button } from "./Form.styled";
 
 function FormFill() {
+
+  const [location, setLocation] = useState({
+    lat : "",
+    long : ""
+  })
+
+  useEffect(()=>{
+    navigator.geolocation.getCurrentPosition(onSucess, onError)
+  })
+
+  function onSucess(position){
+    setLocation({
+      lat : position.coords.latitude,
+      long : position.coords.longitude
+    })
+  }
+
+  function onError(){
+    window.alert("geolocation not available ")
+  }
+ 
 
   const usernameInputRef = useRef();
   const emailInputRef = useRef();
   const addressInputRef = useRef();
 
   function handleSubmit(e) {
+    
+
     e.preventDefault();
 
     const enteredUsername = usernameInputRef.current.value;
     const enteredEmail = emailInputRef.current.value;
     const enteredAddress = addressInputRef.current.value;
 
+
     const InputDatas = {
       username: enteredUsername,
       email: enteredEmail,
       address: enteredAddress,
+      latitude : location.lat,
+      longitude : location.long
+      
     };
 
     console.log(InputDatas);
