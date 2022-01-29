@@ -1,28 +1,11 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef } from "react";
+import Geolocation from "./Geolocation";
 
 import { Form, InputDivs, Input, DivContainer, Button } from "./Form.styled";
 
 function FormFill() {
+  const locationPosition = Geolocation();
 
-  const [location, setLocation] = useState({
-    lat : "",
-    long : ""
-  })
-
-  useEffect(()=>{
-    navigator.geolocation.getCurrentPosition(onSucess, onError)
-  })
-
-  function onSucess(position){
-    setLocation({
-      lat : position.coords.latitude,
-      long : position.coords.longitude
-    })
-  }
-
-  function onError(){
-    window.alert("geolocation not available ")
-  }
  
 
   const usernameInputRef = useRef();
@@ -43,8 +26,8 @@ function FormFill() {
       username: enteredUsername,
       email: enteredEmail,
       address: enteredAddress,
-      latitude : location.lat,
-      longitude : location.long
+      latitude : locationPosition.lat,
+      longitude : locationPosition.long
       
     };
 
